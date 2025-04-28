@@ -1,5 +1,5 @@
-import reactPlugin from "eslint-plugin-react"
-import reactHooks from "eslint-plugin-react-hooks"
+import reactPlugin from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
 export const reactConfig = {
   name: "jsx-tsx",
   files: ["**/*.jsx", "**/*.tsx", "**/*.js", "**/*.ts"],
@@ -18,7 +18,7 @@ export const reactConfig = {
       version: "detect", // 自动检测 React 版本
     },
   },
-}
+};
 
 export const reactConfigStr = `{
   name: "jsx-tsx",
@@ -38,4 +38,4 @@ export const reactConfigStr = `{
       version: "detect", // 自动检测 React 版本
     },
   },
-}`
+}`;

@@ -1,6 +1,6 @@
-import pluginTs from "@typescript-eslint/eslint-plugin"
-import parserTs from "@typescript-eslint/parser"
-import importPlugin from "eslint-plugin-import"
+import pluginTs from "@typescript-eslint/eslint-plugin";
+import parserTs from "@typescript-eslint/parser";
+import importPlugin from "eslint-plugin-import";
 
 export const tsConfig = {
   name: "typescript-and-react",
@@ -22,7 +22,7 @@ export const tsConfig = {
     "import/no-unresolved": "error", // 确保导入的模块存在
     "import/order": ["warn", { "newlines-between": "always" }], // 规范 import 顺序
   },
-}
+};
 
 export const tsConfigStr = `
 {
@@ -45,4 +45,4 @@ export const tsConfigStr = `
     "import/no-unresolved": "error", // 确保导入的模块存在
     "import/order": ["warn", { "newlines-between": "always" }], // 规范 import 顺序
   },
-}`
+}`;

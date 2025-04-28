@@ -8,7 +8,7 @@ export const nextConfig = {
   rules: {
     ...nextPlugin.configs.recommended.rules,
   },
-}
+};
 export const nextConfigStr = `{
   name: "next",
   files: ["**/*.js", "**/*.ts", "**/*.tsx", "**/*.jsx"],
@@ -18,5 +18,4 @@ export const nextConfigStr = `{
   rules: {
     ...nextPlugin.configs.recommended.rules,
   },
-}`
-
+}`;

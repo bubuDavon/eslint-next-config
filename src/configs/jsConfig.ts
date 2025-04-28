@@ -1,5 +1,5 @@
-import importPlugin from "eslint-plugin-import"
-import js from "@eslint/js"
+import importPlugin from "eslint-plugin-import";
+import js from "@eslint/js";
 export const jsConfig = {
   name: "javascript",
   files: ["**/*.js", "**/*.mjs"],
@@ -12,7 +12,7 @@ export const jsConfig = {
     "import/no-unresolved": "error", // 确保导入的模块存在
     "import/order": ["warn", { "newlines-between": "always" }], // 规范 import 顺序
   },
-}
+};
 
 export const jsConfigStr = `{
   name: "javascript",
@@ -27,4 +27,4 @@ export const jsConfigStr = `{
     "import/order": ["warn", { "newlines-between": "always" }], // 规范 import 顺序
   },
 }
-`
+`;

@@ -9,7 +9,7 @@ export const cssConfig = {
   rules: {
     ...css.configs.recommended.rules,
   },
-}
+};
 
 export const cssConfigStr = `{
   name: "css",
@@ -21,4 +21,4 @@ export const cssConfigStr = `{
   rules: {
     ...css.configs.recommended.rules,
   },
-}`
+}`;

@@ -6,14 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "tsup --watch",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint-fix": "eslint --fix",
+    "build": "tsup --clean"
   },
+  "bin": "./bin/index.js",
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bubuDavon/eslint-next-config.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "bubuDavon",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/bubuDavon/eslint-next-config/issues"
