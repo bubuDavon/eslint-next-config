@@ -1,53 +1,77 @@
 import fs from "fs";
 import { execSync } from "child_process";
-
 import inquirer from "inquirer";
-
 import * as configsTemplates from "../configs";
 import { ignorePaths } from "../common";
 
-import * as configsTemplates from "../configs";
-
 async function main() {
-  const answers = await inquirer.prompt([
-    {
-      type: "confirm",
-      name: "useNext",
-      message: "Do you want to use a Next.js eslint configuration?",
-      default: true,
-    },
-    {
-      type: "confirm",
-      name: "useTypeScript",
-      message: "Do you want to use a TypeScript eslint configuration?",
-      default: true,
-    },
-    {
-      type: "confirm",
-      name: "useReact",
-      message: "Do you want to use a React eslint configuration?",
-      default: true,
-    },
-    {
-      type: "confirm",
-      name: "useCSS",
-      message: "Do you want to use a css eslint configuration?",
-      default: true,
-    },
-    {
-      type: "confirm",
-      name: "usePrettier",
-      message: "Do you want to integrate Prettier?",
-      default: true,
-    },
-    {
-      type: "list",
-      name: "packageManager",
-      message: "Choose your package manager",
-      choices: ["pnpm", "npm", "yarn"],
-      default: "pnpm",
-    },
-  ]);
+
+
+  async function askQuestions() {
+    const answers = await inquirer.prompt([
+      {
+        type: "confirm",
+        name: "useTypeScript",
+        message: "Do you want to use a TypeScript eslint configuration?",
+        default: true,
+      },
+      {
+        type: "confirm",
+        name: "useCSS",
+        message: "Do you want to use a css eslint configuration?",
+        default: true,
+      },
+      {
+        type: "confirm",
+        name: "usePrettier",
+        message: "Do you want to integrate Prettier?",
+        default: true,
+      },
+      {
+        type: "list",
+        name: "packageManager",
+        message: "Choose your package manager",
+        choices: ["pnpm", "npm", "yarn"],
+        default: "pnpm",
+      },
+      {
+        type: "confirm",
+        name: "useNext",
+        message: "Do you want to use a Next.js eslint configuration?",
+        default: true,
+      },
+    ]);
+
+    if (!answers.useNext) {
+      const reactAnswer = await inquirer.prompt([
+        {
+          type: "confirm",
+          name: "useReact",
+          message: "Do you want to use react eslint config?",
+          default: true,
+        },
+      ]);
+
+      answers.useReact = reactAnswer.useReact;
+    }
+
+    if (answers.useReact) {
+      const reactHooksAnswer = await inquirer.prompt([
+        {
+          type: "confirm",
+          name: "useReactHooks",
+          message: "Do you want to use react hooks eslint config?",
+          default: true,
+        },
+      ]);
+
+      answers.useReactHooks = reactHooksAnswer.useReactHooks;
+    }
+    console.log(answers);
+   return answers;
+  }
+
+  const answers = await askQuestions();
 
   const imports = [];
   const dependencies = ["eslint"];
@@ -79,13 +103,18 @@ async function main() {
       templates: [configsTemplates.tsConfigStr],
     },
     {
-      condition: answers.useReact,
+      condition: answers.useReact || answers.useNext,
       imports: [
         `import reactPlugin from "eslint-plugin-react";`,
-        `import reactHooks from "eslint-plugin-react-hooks";`,
+        answers.useReactHooks || answers.useNext
+          ? `import reactHooks from "eslint-plugin-react-hooks";`
+          : "",
       ],
-      dependencies: ["eslint-plugin-react", "eslint-plugin-react-hooks"],
-      templates: [configsTemplates.reactConfigStr],
+      dependencies: [
+        "eslint-plugin-react",
+        answers.useReactHooks || answers.useNext ? "eslint-plugin-react-hooks" : "",
+      ],
+      templates: [configsTemplates.reactConfigStr(answers.useReactHooks || answers.useNext)],
     },
     {
       condition: answers.usePrettier,
@@ -105,20 +134,21 @@ async function main() {
 
   for (const feature of featureConfigs) {
     if (feature.condition) {
-      imports.push(...feature.imports);
-      dependencies.push(...feature.dependencies);
+      imports.push(...feature.imports.filter((v) => Boolean(v)));
+      dependencies.push(...feature.dependencies.filter((v) => Boolean(v)));
       templates.push(...feature.templates);
     }
   }
 
-  const finalConfig = `${imports.join("\n")}
+  const finalConfig = `
+${imports.join("\n")}
 
-  const config = [
-    {
-      ignores: ${JSON.stringify(ignorePaths)},
-    }, 
-    ${templates.join(",\n")}
-  ];
+const config = [
+  {
+    ignores: ${JSON.stringify(ignorePaths)},
+  }, 
+  ${templates.join(",\n")}
+];
 export default defineConfig(config);`;
 
   //  eslint.config.mjs
@@ -131,7 +161,7 @@ export default defineConfig(config);`;
       "semi": false,
       "singleQuote": false,
       "trailingComma": "all"
-    }`,
+    }`
     );
     console.log("✅ generated .prettierrc！");
   }
@@ -149,7 +179,7 @@ export default defineConfig(config);`;
   } catch (error) {
     console.error(
       "❌ installed failed, do it manually:",
-      dependencies.join(" "),
+      dependencies.join(" ")
     );
   }
 }

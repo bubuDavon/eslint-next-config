@@ -1,6 +1,6 @@
 {
   "name": "eslint-next-config",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -31,6 +31,11 @@
   "exports": {
     ".": "./dist/index.js"
   },
+  "files": [
+    "dist/",
+    "README.md",
+    "bin"
+  ],
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@eslint/css": "^0.7.0",

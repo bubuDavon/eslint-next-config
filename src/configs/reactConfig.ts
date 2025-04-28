@@ -20,22 +20,22 @@ export const reactConfig = {
   },
 };
 
-export const reactConfigStr = `{
+export const reactConfigStr = (useHooks) => `{
   name: "jsx-tsx",
   files: ["**/*.jsx", "**/*.tsx", "**/*.js", "**/*.ts"],
   plugins: {
     react: reactPlugin,
-    "react-hooks": reactHooks,
+    ${useHooks ?  `"react-hooks": reactHooks` : ''},
   },
   rules: {
     ...reactPlugin.configs.flat.recommended.rules,
     ...reactPlugin.configs.flat["jsx-runtime"].rules,
-    ...reactHooks.configs["recommended-latest"].rules,
+    ${useHooks ? ' ...reactHooks.configs["recommended-latest"].rules' : ''},
   },
   languageOptions: reactPlugin.configs.flat.recommended.languageOptions,
   settings: {
     react: {
-      version: "detect", // 自动检测 React 版本
+      version: "detect", 
     },
   },
 }`;
