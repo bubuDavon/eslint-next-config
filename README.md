@@ -25,7 +25,7 @@ It will then generate a fully configured:
 eslint.config.mjs
 ## Importing as a dependency
 You can also use it programmatically inside your eslint.config.mjs:
-
+`pnpm add -D eslint-next-config prettier eslint`
 ```javascript
 // eslint.config.mjs
 import eslintConfigGenerator from 'eslint-next-config';
