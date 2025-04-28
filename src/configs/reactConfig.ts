@@ -25,12 +25,12 @@ export const reactConfigStr = (useHooks) => `{
   files: ["**/*.jsx", "**/*.tsx", "**/*.js", "**/*.ts"],
   plugins: {
     react: reactPlugin,
-    ${useHooks ?  `"react-hooks": reactHooks` : ''},
+    ${useHooks ?  `"react-hooks": reactHooks,` : ''}
   },
   rules: {
     ...reactPlugin.configs.flat.recommended.rules,
     ...reactPlugin.configs.flat["jsx-runtime"].rules,
-    ${useHooks ? ' ...reactHooks.configs["recommended-latest"].rules' : ''},
+    ${useHooks ? ' ...reactHooks.configs["recommended-latest"].rules,' : ''}
   },
   languageOptions: reactPlugin.configs.flat.recommended.languageOptions,
   settings: {

@@ -8,7 +8,8 @@
     "watch": "tsup --watch",
     "lint": "eslint",
     "lint-fix": "eslint --fix",
-    "build": "tsup --clean"
+    "build": "tsup --clean",
+    "pub": "npm run build && npm publish"
   },
   "bin": "./bin/index.js",
 
