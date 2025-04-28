@@ -1,0 +1,36 @@
+
+.test-class {
+    color: red;
+  }
+  
+  .test-class {
+    font-size: 16px;
+  }
+  
+  /* Undefined class rule violation */
+  .undefined-class {
+    background-color: blue;
+  }
+  .aaa {
+    
+  }
+  /* Valid class */
+  .valid-class {
+    margin: 10px;
+  }
+  
+  /* Invalid color value */
+  .invalid-color {
+    color: #fff;
+  }
+  
+  /* Duplicate selector rule violation */
+  .test-class {
+    padding: 20px;
+  }
+  
+  /* Correct rule */
+  body {
+    background-color: white;
+  }
+  
