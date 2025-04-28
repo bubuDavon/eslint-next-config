@@ -1,4 +1,4 @@
-import { defineConfig } from "eslint/config"
+import { defineConfig } from "eslint/config";
 import js from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
 import nextPlugin from "@next/eslint-plugin-next";
@@ -9,8 +9,11 @@ import reactHooks from "eslint-plugin-react-hooks";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import css from "@eslint/css";
 
-
-const config = [{
+  const config = [
+    {
+      ignores: ["build/","coverage/","docs/","logs/","mochawesome-reports/","node_modules/","src/images","src/logs","public/","dist/","examples/"],
+    }, 
+    {
   name: "javascript",
   files: ["**/*.js", "**/*.mjs"],
   plugins: {
@@ -91,6 +94,6 @@ const config = [{
   rules: {
     ...css.configs.recommended.rules,
   },
-}];
-export default defineConfig(config)
-  
+}
+  ];
+export default defineConfig(config);
